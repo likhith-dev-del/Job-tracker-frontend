@@ -74,26 +74,42 @@ export default function RegisterPage() {
     
     setIsLoading(true)
     
-    try {
-      // API integration placeholder
-      // const response = await register(formData)
-      // if (response.success) {
-      //   router.push('/login')
-      // }
-      
-      // Simulated success for demo
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      toast({
-        title: 'Account created!',
-        description: 'Please sign in with your new account.',
-      })
-      router.push('/login')
-    } catch {
-      toast({
-        title: 'Error',
-        description: 'Something went wrong. Please try again.',
-        variant: 'destructive',
-      })
+ try {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+      }),
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Registration failed");
+  }
+
+  toast({
+    title: "Account created!",
+    description: "Please sign in with your new account.",
+  });
+
+  router.push("/login");
+
+} catch (error: any) {
+  toast({
+    title: "Error",
+    description: error.message || "Something went wrong.",
+    variant: "destructive",
+  });
+
     } finally {
       setIsLoading(false)
     }
