@@ -73,7 +73,7 @@ export default function DashboardPage() {
 })
 // useeffect
 
-const [jobs, setJobs] = useState([])
+const [jobs, setJobs] = useState<any[]>([])
 
 useEffect(() => {
   fetchStats()
@@ -97,7 +97,9 @@ const fetchStats = async () => {
 
     console.log(data)
 
-    setStats(data)
+    if (data) {
+  setStats(data)
+}
 
   } catch (error) {
     console.log(error)
@@ -121,8 +123,14 @@ const fetchJobs = async () => {
 
     console.log(data)
 
+  if (Array.isArray(data)) {
+  
     setJobs(data)
+}  else {
 
+  console.log("Jobs API Error:", data)
+  setJobs([])
+}
   } catch (error) {
     console.log(error)
   }
