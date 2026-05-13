@@ -67,9 +67,15 @@ export default function LoginPage() {
       }
     )
 
-    const data = await response.json()
-    console.log(data)
-     console.log(data.token);
+    let data;
+
+   try {
+  data = await response.json();
+}  catch {
+  data = { message: "Invalid server response" };
+}
+console.log(response.status);
+console.log(data);
 
     if (response.ok) {
      
