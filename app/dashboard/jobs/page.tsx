@@ -158,7 +158,7 @@ const emptyFormData: JobFormData = {
 }
 
 export default function JobsPage() {
-  const [jobs, setJobs] = useState<Job[]>([])
+  const [jobs, setJobs] = useState<any[]>([])
   const [searchQuery, setSearchQuery] = useState('')
   const [statusFilter, setStatusFilter] = useState<JobStatus | 'all'>('all')
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -191,7 +191,12 @@ const fetchJobs = async () => {
 
     console.log(data)
 
-    setJobs(data)
+  if (Array.isArray(data)) {
+  setJobs(data)
+} else {
+  console.log("Jobs API Error:", data)
+  setJobs([])
+}
 
   } catch (error) {
     console.log(error)
