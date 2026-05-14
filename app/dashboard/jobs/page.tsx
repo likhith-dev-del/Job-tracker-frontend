@@ -192,7 +192,8 @@ const fetchJobs = async () => {
     console.log(data)
 
   if (Array.isArray(data)) {
-  setJobs(data)
+     console.log("JOBS COUNT:", data.length)
+     setJobs(data)
 } else {
   console.log("Jobs API Error:", data)
   setJobs([])
@@ -282,8 +283,8 @@ const fetchJobs = async () => {
   const data = await response.json()
 
   console.log(data)
-
-  fetchJobs()
+//await
+  await fetchJobs()
 
   toast({
     title: 'Job updated',
@@ -317,8 +318,8 @@ const fetchJobs = async () => {
   const data = await response.json()
 
   console.log(data)
-
-  fetchJobs()
+  // console.log("JOBS COUNT:", data.length)
+  await fetchJobs()
 
   toast({
     title: 'Job added',
@@ -358,7 +359,7 @@ const fetchJobs = async () => {
 
     console.log(data)
 
-    fetchJobs()
+   await  fetchJobs()
 
     toast({
       title: 'Job deleted',
